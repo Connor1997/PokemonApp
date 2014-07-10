@@ -209,7 +209,9 @@ main {
   margin: 0 auto;
   /* Height of the header */
   padding: 60px 16px 16px 16px;
-  min-height: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center; 
 }
 
 /** Larger Screens - desktops and tablets **/
