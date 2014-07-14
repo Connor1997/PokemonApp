@@ -1,5 +1,7 @@
 var MyPokeApp = angular.module('MyPokeApp', []);
-MyPokeApp.controller('mainController', function($scope) {
+MyPokeApp.controller('mainController', function($scope, $http) {
+	$scope.pokemons=[];
+
 	$scope.res={};
 	$scope.res.hp=0;
 	$scope.res.atk=0;
@@ -128,6 +130,18 @@ MyPokeApp.controller('mainController', function($scope) {
 		$scope.res.woScarf = $scope.computeScarf($scope.res.spe);
 		$scope.res.wScarf = $scope.computeScarf(Math.ceil($scope.res.spe/1.5));
 	},true);
+
+	$scope.get_pokemon = function(){
+		var url = "http://pokeapi.co/api/v1/pokemon/";
+		$http({method:"GET",url:url})
+			.success(function(data){
+				$scope.pokemons = data.objects;
+			
+			}).error(function(data, status, headers, config){
+			
+			})
+	};
+	// $scope.get_pokemon();
 
 	$scope.computeScarf = function(sped){
 		var top = (Math.ceil(sped/1.1)-5)*100;

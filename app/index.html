@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <title>Web Starter Kit</title>
+    <title>Pokemon App</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -14,7 +14,7 @@
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+    <meta name="apple-mobile-web-app-title" content="Pokemon App">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
@@ -38,21 +38,21 @@
       <div class="app-bar-container">
         <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
         <h1 class="logo">Pokemon App</h1>
-        debug {{data}}
+        debug {{pokemons}}
         <section class="app-bar-actions">
         <!-- Put App Bar Buttons Here -->
         </section>
       </div>
     </header>
 
-    <nav class="navdrawer-container promote-layer">
+    <!-- <nav class="navdrawer-container promote-layer">
       <h4>Navigation</h4>
       <ul>
         <li><a href="#hello">Hello</a></li>
         <li><a href="#get-started">Get Started</a></li>
         <li><a href="styleguide/index.html">Style Guide</a></li>
       </ul>
-    </nav>
+    </nav> -->
 
     <main>
     <div class="container">
@@ -187,7 +187,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-3"><input type="text" name="move-3-name" value=""></input></div>
         <div class="col-md-2"></div>
-        <div class="col-md-3">Item</div>
+        <div class="col-md-3">Item:</div>
         <div class="col-md-2"></div>
       </div>
       <div class="row">
@@ -200,13 +200,14 @@
 <!--       <div>
         <div ng-repeat="message in data.messages"></div>
       </div> -->
-      <h2>Vs Comparison</h2>
-To Be Determined
       <h2>Speed Comparison</h2>
       <div class="row">
         <div class="col-md-6">Without Scarf: <div class="output">{{res.woScarf}}</div></div>
         <div class="col-md-6">With Scarf: <div class="output">{{res.wScarf}}</div></div>
-      </div>
+      </div>      
+      <h2>Vs Comparison</h2>
+To Be Determined
+
     </div>
     </main>
 
