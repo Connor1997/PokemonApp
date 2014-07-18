@@ -1,6 +1,7 @@
 var MyPokeApp = angular.module('MyPokeApp', []);
 MyPokeApp.controller('mainController', function($scope, $http) {
 	$scope.pokemons=[];
+	$scope.moves=[];
 
 	$scope.res={};
 	$scope.res.hp=0;
@@ -43,7 +44,7 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	$scope.data.speIv=31;
 	$scope.data.speNat="";
 	$scope.data.speMult=1;
-		$scope.natures=[
+	$scope.natures=[
 		{name:"Adamant",verbose:"Adamant (+Atk, -SpA)",atkNat:"+",spaNat:"-"},
 		{name:"Bashful",verbose:"Bashful"},
 		{name:"Bold",verbose:"Bold (+Def, -Atk)",defNat:"+",atkNat:"-"},
@@ -73,7 +74,7 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	];
 	$scope.data.nature=$scope.natures[23];
 	$scope.$watch('data.nature',function(newVal){
-		console.log(newVal)
+		
 		if(newVal.atkNat){
 			$scope.data.atkNat=newVal.atkNat;
 		} else{
@@ -132,16 +133,17 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	},true);
 
 	$scope.get_pokemon = function(){
-		var url = "http://pokeapi.co/api/v1/pokemon/";
+		var url = "/scripts/pokemons.json";
 		$http({method:"GET",url:url})
 			.success(function(data){
-				$scope.pokemons = data.objects;
+				// data = JSON.parse(data)
+				$scope.pokemons = data;
 			
 			}).error(function(data, status, headers, config){
 			
 			})
 	};
-	// $scope.get_pokemon();
+	$scope.get_pokemon();
 
 	$scope.computeScarf = function(sped){
 		var top = (Math.ceil(sped/1.1)-5)*100;
@@ -150,6 +152,39 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 		if(out < 0) out = 0;
 		return out;
 	};
+	$scope.$watch('pokemon_active',function(newVal){
+		if(newVal){
+			var moves = [];
+			for(var i=0;i<newVal.moves.length;i++){
+				var move = newVal.moves[i]
+				var name = move.name.replace("-"," ");
+				moves.push(name);
+			};
+			$scope.data.hpBase = newVal.hp;
+			$scope.data.atkBase = newVal.attack;
+			$scope.data.defBase = newVal.defense;
+			$scope.data.spaBase = newVal.sp_atk;
+			$scope.data.spdBase = newVal.sp_def;
+			$scope.data.speBase = newVal.speed;
+			$scope.moves = moves;
+			$('#moves1').autocomplete("option", { source: $scope.moves });
+			$('#moves2').autocomplete("option", { source: $scope.moves });
+			$('#moves3').autocomplete("option", { source: $scope.moves });
+			$('#moves4').autocomplete("option", { source: $scope.moves });
+		}
+	})
 
  });
-
+MyPokeApp.directive('autoComplete', function($timeout) {
+    return function(scope, iElement, iAttrs) {
+    	
+            iElement.autocomplete({
+                source: scope[iAttrs.uiItems],
+                select: function() {
+                    $timeout(function() {
+                      iElement.trigger('input');
+                    }, 0);
+                }
+            });
+    };
+});

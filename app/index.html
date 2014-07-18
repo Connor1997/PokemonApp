@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/mystyle.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://code.jquery.com/ui/1.11.0/themes/flick/jquery-ui.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
   <body ng-app="MyPokeApp" ng-controller="mainController">
@@ -38,7 +39,7 @@
       <div class="app-bar-container">
         <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
         <h1 class="logo">Pokemon App</h1>
-        debug {{pokemons}}
+        debug {{moves}}
         <section class="app-bar-actions">
         <!-- Put App Bar Buttons Here -->
         </section>
@@ -62,7 +63,7 @@
         <div class="col-md-4">Meta:</div>
       </div>
       <div class="row" style="text-align: left;">
-        <div class="col-md-4"><input type="text" name="name" value=""></input></div>
+        <div class="col-md-4"><select ng-model="pokemon_active" ng-options="pokemon.name for pokemon in pokemons | orderBy:'name'" value="{{pokemon.name}}"></select></div>
         <div class="col-md-4"><input type="integer" name="level" ng-model="data.level"></input></div>
         <div class="col-md-4">
           <div class="radio">
@@ -173,26 +174,26 @@
       </div>
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3"><input type="text" name="move-1-name" value=""></input></div>
+        <div class="col-md-3"><input auto-complete ui-items="moves" ng-model="selected1" id="moves1"></div>
         <div class="col-md-2"></div>
         <div class="col-md-3"><input type="text" name="ability" value=""></input></div>
         <div class="col-md-2"></div>
       </div>
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3"><input type="text" name="move-2-name" value=""></input></div>
+        <div class="col-md-3"><input auto-complete ui-items="moves" ng-model="selected2" id="moves2"></div>
         <div class="col-md-7"></div>
       </div>
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3"><input type="text" name="move-3-name" value=""></input></div>
+        <div class="col-md-3"><input auto-complete ui-items="moves" ng-model="selected3" id="moves3"></div>
         <div class="col-md-2"></div>
         <div class="col-md-3">Item:</div>
         <div class="col-md-2"></div>
       </div>
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-3"><input type="text" name="move-4-name" value=""></input></div>
+        <div class="col-md-3"><input auto-complete ui-items="moves" ng-model="selected4" id="moves4"></div>
         <div class="col-md-2"></div>
         <div class="col-md-3"><input type="text" name="item" value=""></input></div>
         <div class="col-md-2"></div>
@@ -212,7 +213,8 @@ To Be Determined
     </main>
 
     <!-- build:js scripts/main.min.js -->
-    <script src="scripts/main.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="scripts/app.js"></script>
     <!-- endbuild -->
