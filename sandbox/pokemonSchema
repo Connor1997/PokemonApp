@@ -1,0 +1,41 @@
+var fs = require('fs');
+var mongoose = require('mongoose');
+
+
+mongoose.connect('mongodb://localhost/test');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  // yay!
+});
+var pokemons;
+function loadPokemon(path){
+	var file = path;
+	 
+	fs.readFile(file, 'utf8', function (err, data) {
+	  if (err) {
+	    console.log('Error: ' + err);
+	    return;
+	  }
+	 
+	  pokemons = JSON.parse(data);
+	 
+	 
+	});
+};
+console.log("loading pokemon.json");
+loadPokemon("pokemon.json");
+console.log("done loading pokemon.json");
+var pokemonSchema = mongoose.Schema({
+    name: String
+    stats: {
+    	hp: Number
+    	atk: Number
+    	def: Number
+    	spa: Number
+    	spd: Number
+    	spe: Number
+    }
+    moves: [{ name: String, method: String}]
+})
+var Pokemon = mongoose.model('Pokemon', pokemonSchema);
