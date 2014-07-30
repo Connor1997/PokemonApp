@@ -1,5 +1,6 @@
 var MyPokeApp = angular.module('MyPokeApp', []);
 MyPokeApp.controller('mainController', function($scope, $http) {
+	$scope.nav = "calculator"
 	$scope.pokemons=[];
 	$scope.moves=[];
 

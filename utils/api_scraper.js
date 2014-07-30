@@ -6,14 +6,12 @@ var http = require('http'),
 // var baseUrl = "http://bulbapedia.bulbagarden.net/w/api.php";
 // var requestUrl = baseUrl + "?action=query&titles=Lucario&format=json&prop=categories";
 var baseUrl = "http://pokeapi.co"
-var requestUrl = baseUrl + "/api/v1/pokemon?format=json&limit=100"
-var outFile = "../app/scripts/pokemons.json"
-var objects = [];
-
-console.log(requestUrl)
+var objectsPokemon = [];
+var objectsMove = [];
 
 
-function get_pokemon(url){
+function get(url, outFile, objects){
+	console.log("in get: " + outFile)
 	request(url, function(error, response, raw) {
 		var data = JSON.parse(raw)
 		console.log(data.meta);
@@ -22,15 +20,16 @@ function get_pokemon(url){
 		if(data.meta.next){
 			url = baseUrl + data.meta.next;
 			console.log(url)
-			get_pokemon(url);
+			get(url, outFile, objects);
 		} else {
-			write_file();
+			console.log("in callback: " + outFile)
+			write_file(outFile, objects);
 		}
 
 	});
 }
-function write_file(){
-	debugger
+function write_file(outFile, objects){
+	console.log("in write_file: " + outFile)
 	fs.writeFile(outFile, JSON.stringify(objects), function(err) { 
  		if(err) {
   			console.log(err); 
@@ -39,4 +38,12 @@ function write_file(){
   		} 
   	});
 }
-get_pokemon(requestUrl);
+
+
+var requestUrl = baseUrl + "/api/v1/pokemon?format=json&limit=100"
+get(requestUrl, "../app/scripts/pokemons.json", objectsPokemon);
+
+requestUrl = baseUrl + "/api/v1/move?format=json&limit=100"
+get(requestUrl, "../app/scripts/moves.json", objectsMove);
+
+

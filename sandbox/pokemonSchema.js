@@ -8,6 +8,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   // yay!
 	var pokemons;
+	var moves;
 	function loadPokemon(path){
 		var file = path;
 		 
@@ -23,7 +24,34 @@ db.once('open', function callback () {
 		});
 	};
 	console.log("loading pokemons.json");
-	loadPokemon("pokemons.json");
+	loadPokemon("../app/scripts/pokemons.json");
+
+
+	function loadMoves(path){
+		var file = path;
+		 
+		fs.readFile(file, 'utf8', function (err, data) {
+		  if (err) {
+		    console.dir(err.stack);
+		    return;
+		  };
+		 
+		  moves = JSON.parse(data);
+		  console.log("done loading moves.json");
+		  createMoves();
+		});
+	};
+	console.log("loading moves.json");
+	loadMoves("../app/scripts/moves.json");
+
+	var moveSchema = mongoose.Schema({
+		name: String,
+		power: Number,
+		accuracy: Number,
+		category: String,
+		description: String,
+		pp: Number,
+	});
 
 	var pokemonSchema = mongoose.Schema({
 	    name: String,
@@ -35,26 +63,34 @@ db.once('open', function callback () {
 	    	spd: Number,
 	    	spe: Number
 	    }],
-	    moves: [{ name: String, method: String}]
+	    moves: [{ name: String, method: String }],
+	    abilities: [{ name: String }]
 	});
 
 	function createPokemons(){
+		console.log("creating pokemon")
 		var Pokemon = mongoose.model('Pokemon', pokemonSchema);
 		//loop over pokemons and write to database
-		for(var i=0;i<10;i++){
+		for(var i=0;i<pokemons.length;i++){
 			var item = pokemons[i];
 			var p = new Pokemon({ name: item.name });
 	  		p.stats = { hp: item.hp, atk: item.attack, def: item.defense, spa: item.sp_atk, spd: item.sp_def, spe: item.speed };
   			// p.moves = { name: item.moves.name, method: item.moves.learn_type };
   			//@TODO build new moves list
-  			//for loop over original move list
+  			//for loop over the original move list
   			//create new_moves, which is a list w/ each item having keywords name and method
   			var new_moves = [];
   			for(var j=0;j<item.moves.length;j++){
   				var obj = {name: item.moves[j].name, method: item.moves[j].learn_type};
   				new_moves.push(obj);
   			};
-  			p.moves = new_moves
+  			p.moves = new_moves;
+  			var new_abilities = [];
+  			for(var k=0;k<item.abilities.length;k++){
+  				var obj = {name: item.abilities[k].name};
+  				new_abilities.push(obj);
+  			};
+  			p.abilities = new_abilities;
 			p.save(function (err, p){
 				if (err) return console.error(err);
 			});
@@ -62,6 +98,29 @@ db.once('open', function callback () {
 			
 			console.log("added " + item.name)
 		}
+		console.log("done creating pokemon")
+	}
+	function createMoves(){
+		console.log("creating moves")
+		var Move = mongoose.model('Move', moveSchema);
+		//loop over pokemons and write to database
+		for(var i=0;i<moves.length;i++){
+			var item = moves[i];
+			var m = new Move({ name: item.name,
+							   power: item.power,
+							   accuracy: item.accuracy,
+							   category: item.category,
+							   description: item.description,
+							   pp: item.pp });
+  		
+			m.save(function (err, m){
+				if (err) return console.error(err);
+			});
+  			
+			
+			console.log("added " + item.name)
+		}
+		console.log("done creating moves")
 	}
 });
 

@@ -46,17 +46,25 @@
       </div>
     </header>
 
-    <!-- <nav class="navdrawer-container promote-layer">
+    <nav class="navdrawer-container promote-layer">
       <h4>Navigation</h4>
       <ul>
-        <li><a href="#hello">Hello</a></li>
-        <li><a href="#get-started">Get Started</a></li>
-        <li><a href="styleguide/index.html">Style Guide</a></li>
+        <li><a href="#about" ng-click='nav="about"'>About</a></li>
+        <li><a href="#calculator" ng-click='nav="calculator"'>Calculator</a></li>
+        <li><a href="#pokedex" ng-click='nav="pokedex"'>Pokedex</a></li>
+        <li><a href="#help" ng-click='nav="help"'>Help</a></li>
+        <li><a href="#contact" ng-click='nav="contact"'>Contact</a></li>
       </ul>
-    </nav> -->
+    </nav>
 
     <main>
-    <div class="container">
+    <div ng-show='nav === "about"'>
+      <h1>
+        Hello!
+      </h1>
+      <h2>This site was constructed to help competitive pokemon players make sets and get an idea of how good it is before putting it to use.</h2>
+    </div>
+    <div class="container" ng-show='nav === "calculator"'>
       <div class="row">
         <div class="col-md-4">Name:</div>
         <div class="col-md-4">Level:</div>
@@ -198,6 +206,7 @@
         <div class="col-md-3"><input type="text" name="item" value=""></input></div>
         <div class="col-md-2"></div>
       </div>
+    
 <!--       <div>
         <div ng-repeat="message in data.messages"></div>
       </div> -->
@@ -210,6 +219,8 @@
 To Be Determined
 
     </div>
+    <!-- end of container -->
+
     </main>
 
     <!-- build:js scripts/main.min.js -->
