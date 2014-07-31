@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="styles/mystyle.css">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://code.jquery.com/ui/1.11.0/themes/flick/jquery-ui.css" rel="stylesheet">
+    
     <!-- endbuild -->
   </head>
   <body ng-app="MyPokeApp" ng-controller="mainController">
@@ -39,7 +40,7 @@
       <div class="app-bar-container">
         <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
         <h1 class="logo">Pokemon App</h1>
-        <!-- debug {{moves}} -->
+        debug {{data.meta_level}}
         <section class="app-bar-actions">
         <!-- Put App Bar Buttons Here -->
         </section>
@@ -106,7 +107,7 @@
       </div>
       <div class="row">
         <div class="col-md-1">HP</div>
-        <div class="col-md-3">Graph</div>
+        <div class="col-md-3"><span class="stat-bar" ng-style="getStyle(data.meta_level, 'HP', res.hp)"></span></div>
         <div class="col-md-1"><input type="integer" name="hp-base" ng-model="data.hpBase"></input></div>
         <div class="col-md-1"><input type="integer" name="hp-ev" ng-model="data.hpEv"></input></div>
         <div class="col-md-1"><input type="integer" name="hp-iv" ng-model="data.hpIv"></input></div>
@@ -116,7 +117,7 @@
       </div>
       <div class="row">
         <div class="col-md-1">Atk</div>
-        <div class="col-md-3">Graph</div>
+        <div class="col-md-3"><span class="stat-bar" ng-style="getStyle(data.meta_level, 'AD', res.atk)"></span></div>
         <div class="col-md-1"><input type="integer" name="atk-base" ng-model="data.atkBase"></input></div>
         <div class="col-md-1"><input type="integer" name="atk-ev" ng-model="data.atkEv"></input></div>
         <div class="col-md-1"><input type="integer" name="atk-iv" ng-model="data.atkIv"></input></div>
@@ -126,7 +127,7 @@
       </div>
       <div class="row">
         <div class="col-md-1">Def</div>
-        <div class="col-md-3">Graph</div>
+        <div class="col-md-3"><span class="stat-bar" ng-style="getStyle(data.meta_level, 'AD', res.def)"></span></div>
         <div class="col-md-1"><input type="integer" name="def-base" ng-model="data.defBase"></input></div>
         <div class="col-md-1"><input type="integer" name="def-ev" ng-model="data.defEv"></input></div>
         <div class="col-md-1"><input type="integer" name="def-iv" ng-model="data.defIv"></input></div>
@@ -136,7 +137,7 @@
       </div>
       <div class="row">
         <div class="col-md-1">Sp.Atk</div>
-        <div class="col-md-3">Graph</div>
+        <div class="col-md-3"><span class="stat-bar" ng-style="getStyle(data.meta_level, 'AD', res.spa)"></span></div>
         <div class="col-md-1"><input type="integer" name="spa-base" ng-model="data.spaBase"></input></div>
         <div class="col-md-1"><input type="integer" name="spa-ev" ng-model="data.spaEv"></input></div>
         <div class="col-md-1"><input type="integer" name="spa-iv" ng-model="data.spaIv"></input></div>
@@ -146,7 +147,7 @@
       </div>
       <div class="row">
         <div class="col-md-1">Sp.Def</div>
-        <div class="col-md-3">Graph</div>
+        <div class="col-md-3"><span class="stat-bar" ng-style="getStyle(data.meta_level, 'AD', res.spd)"></span></div>
         <div class="col-md-1"><input type="integer" name="spd-base" ng-model="data.spdBase"></input></div>
         <div class="col-md-1"><input type="integer" name="spd-ev" ng-model="data.spdEv"></input></div>
         <div class="col-md-1"><input type="integer" name="spd-iv" ng-model="data.spdIv"></input></div>
@@ -156,7 +157,7 @@
       </div>
       <div class="row">
         <div class="col-md-1">Spe</div>
-        <div class="col-md-3">Graph</div>
+        <div class="col-md-3"><span class="stat-bar" ng-style="getStyle(data.meta_level, 'Speed', res.spe)"></span></div>
         <div class="col-md-1"><input type="integer" name="spe-base" ng-model="data.speBase"></input></div>
         <div class="col-md-1"><input type="integer" name="spe-ev" ng-model="data.speEv"></input></div>
         <div class="col-md-1"><input type="integer" name="spe-iv" ng-model="data.speIv"></input></div>

@@ -4,3 +4,8 @@
 .output {
 	background-color: #CCC;
 }
+.stat-bar {
+	height: 20px;
+	display: inline-block;
+	float: left;
+}

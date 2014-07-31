@@ -55,6 +55,8 @@ db.once('open', function callback () {
 
 	var pokemonSchema = mongoose.Schema({
 	    name: String,
+	    type: [{ name: String }],
+	    natId: Number,
 	    stats: [{
 	    	hp: Number,
 	    	atk: Number,
@@ -91,6 +93,14 @@ db.once('open', function callback () {
   				new_abilities.push(obj);
   			};
   			p.abilities = new_abilities;
+
+			var new_types = [];
+  			for(var l=0;l<item.types.length;l++){
+  				var obj = {name: item.types[l].name};
+  				new_types.push(obj);
+  			};
+  			p.type = new_types;
+
 			p.save(function (err, p){
 				if (err) return console.error(err);
 			});

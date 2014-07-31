@@ -113,6 +113,9 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	$scope.computeHp = function(){
 		var top = (2*$scope.data.hpBase+1*$scope.data.hpIv+$scope.data.hpEv/4+100)*$scope.data.level;
 		var out = Math.floor(top/100+10);
+		if(parseInt($scope.data.hpBase) === 1){
+			out = 1
+		}
 		return out;
 	};
 	$scope.computeStat = function(N, B, I, E, M){
@@ -174,7 +177,46 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 			$('#moves4').autocomplete("option", { source: $scope.moves });
 		}
 	})
+	$scope.getStyle = function(meta, stat, value){
+		var m;
+		if(stat === "HP"){
+			if(parseInt(meta) === 5){
+				m = 28;
+			} else if(parseInt(meta) === 50){
+				m = 255;
+			} else if(parseInt(meta) === 100){
+				m = 500;
+			}
+			
+		} else if(stat === "AD"){
+			
+			if(parseInt(meta) === 5){
+				m = 20;
+			} else if(parseInt(meta) === 50){
+				m = 253;
+			} else if(parseInt(meta) === 100){
+				m = 500;
+			}
 
+		} else if(stat === "Speed"){ 
+
+			if(parseInt(meta) === 5){
+				m = 20;
+			} else if(parseInt(meta) === 50){
+				m = 222;
+			} else if(parseInt(meta) === 100){
+				m = 438;
+			}
+		}
+		var f = ((value - 1)/(m - 1))
+		var width = Math.min(f * 100, 100)
+		var hue = Math.min(f * 120, 180)
+		var out = {
+			"width": width+"%",
+			"background-color": "hsl("+hue+", 100%, 50%)"
+		};
+		return out
+	};
  });
 MyPokeApp.directive('autoComplete', function($timeout) {
     return function(scope, iElement, iAttrs) {
