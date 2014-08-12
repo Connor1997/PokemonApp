@@ -40,7 +40,7 @@
       <div class="app-bar-container">
         <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
         <h1 class="logo">Pokemon App</h1>
-        debug {{data.meta_level}}
+        debug {{data.atkBoost}}
         <section class="app-bar-actions">
         <!-- Put App Bar Buttons Here -->
         </section>
@@ -101,7 +101,8 @@
         <div class="col-md-1">Base</div>
         <div class="col-md-1">EV</div>
         <div class="col-md-1">IV</div>
-        <div class="col-md-2">Nature</div>
+        <div class="col-md-1">Nature</div>
+        <div class="col-md-1">Boost</div>
         <div class="col-md-2">Multiplier</div>
         <div class="col-md-1"></div>
       </div>
@@ -121,7 +122,8 @@
         <div class="col-md-1"><input type="integer" name="atk-base" ng-model="data.atkBase"></input></div>
         <div class="col-md-1"><input type="integer" name="atk-ev" ng-model="data.atkEv"></input></div>
         <div class="col-md-1"><input type="integer" name="atk-iv" ng-model="data.atkIv"></input></div>
-        <div class="col-md-2"><input type="text" name="atk-nat" ng-model="data.atkNat"></input></div>
+        <div class="col-md-1"><input type="text" name="atk-nat" ng-model="data.atkNat"></input></div>
+        <div class="col-md-1"><select ng-model="data.atkBoost" ng-options="boost.verbose for boost in boosts"></select></div>
         <div class="col-md-2"><input type="integer" name="atk-mult" ng-model="data.atkMult"></input></div>
         <div class="col-md-1"><div class="output">{{res.atk}}</div></div>
       </div>
@@ -131,7 +133,8 @@
         <div class="col-md-1"><input type="integer" name="def-base" ng-model="data.defBase"></input></div>
         <div class="col-md-1"><input type="integer" name="def-ev" ng-model="data.defEv"></input></div>
         <div class="col-md-1"><input type="integer" name="def-iv" ng-model="data.defIv"></input></div>
-        <div class="col-md-2"><input type="text" name="def-nat" ng-model="data.defNat"></input></div>
+        <div class="col-md-1"><input type="text" name="def-nat" ng-model="data.defNat"></input></div>
+        <div class="col-md-1"><select ng-model="data.defBoost" ng-options="boost.verbose for boost in boosts"></select></div>
         <div class="col-md-2"><input type="integer" name="def-mult" ng-model="data.defMult"></input></div>
         <div class="col-md-1"><div class="output">{{res.def}}</div></div>
       </div>
@@ -141,7 +144,8 @@
         <div class="col-md-1"><input type="integer" name="spa-base" ng-model="data.spaBase"></input></div>
         <div class="col-md-1"><input type="integer" name="spa-ev" ng-model="data.spaEv"></input></div>
         <div class="col-md-1"><input type="integer" name="spa-iv" ng-model="data.spaIv"></input></div>
-        <div class="col-md-2"><input type="text" name="spa-nat" ng-model="data.spaNat"></input></div>
+        <div class="col-md-1"><input type="text" name="spa-nat" ng-model="data.spaNat"></input></div>
+        <div class="col-md-1"><select ng-model="data.spaBoost" ng-options="boost.verbose for boost in boosts"></select></div>
         <div class="col-md-2"><input type="integer" name="spa-mult" ng-model="data.spaMult"></input></div>
         <div class="col-md-1"><div class="output">{{res.spa}}</div></div>
       </div>
@@ -151,7 +155,8 @@
         <div class="col-md-1"><input type="integer" name="spd-base" ng-model="data.spdBase"></input></div>
         <div class="col-md-1"><input type="integer" name="spd-ev" ng-model="data.spdEv"></input></div>
         <div class="col-md-1"><input type="integer" name="spd-iv" ng-model="data.spdIv"></input></div>
-        <div class="col-md-2"><input type="text" name="spd-nat" ng-model="data.spdNat"></input></div>
+        <div class="col-md-1"><input type="text" name="spd-nat" ng-model="data.spdNat"></input></div>
+        <div class="col-md-1"><select ng-model="data.spdBoost" ng-options="boost.verbose for boost in boosts"></select></div>
         <div class="col-md-2"><input type="integer" name="spd-mult" ng-model="data.spdMult"></input></div>
         <div class="col-md-1"><div class="output">{{res.spd}}</div></div>
       </div>
@@ -161,13 +166,14 @@
         <div class="col-md-1"><input type="integer" name="spe-base" ng-model="data.speBase"></input></div>
         <div class="col-md-1"><input type="integer" name="spe-ev" ng-model="data.speEv"></input></div>
         <div class="col-md-1"><input type="integer" name="spe-iv" ng-model="data.speIv"></input></div>
-        <div class="col-md-2"><input type="text" name="spe-nat" ng-model="data.speNat"></input></div>
+        <div class="col-md-1"><input type="text" name="spe-nat" ng-model="data.speNat"></input></div>
+        <div class="col-md-1"><select ng-model="data.speBoost" ng-options="boost.verbose for boost in boosts"></select></div>
         <div class="col-md-2"><input type="integer" name="spe-mult" ng-model="data.speMult"></input></div>
         <div class="col-md-1"><div class="output">{{res.spe}}</div></div>
       </div>
       <div class="row">
         <div class="col-md-7"></div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           
             <select ng-model="data.nature" ng-options="nature.verbose for nature in natures" value="{{nature.name}}"></select>
          

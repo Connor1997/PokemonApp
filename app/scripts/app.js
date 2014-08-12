@@ -13,7 +13,21 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	$scope.res.spe=0;
 	$scope.res.woScarf=0;
 	$scope.res.wScarf=0;
-
+	$scope.boosts=[
+		{value:"4",verbose:"+6"},
+		{value:"3.5",verbose:"+5"},
+		{value:"3",verbose:"+4"},
+		{value:"2.5",verbose:"+3"},
+		{value:"2",verbose:"+2"},
+		{value:"1.5",verbose:"+1"},
+		{value:"1",verbose:"0"},
+		{value:"0.6666666667",verbose:"-1"},
+		{value:"0.5",verbose:"-2"},
+		{value:"0.4",verbose:"-3"},
+		{value:"0.3333333333",verbose:"-4"},
+		{value:"0.2857142857",verbose:"-5"},
+		{value:"0.25",verbose:"-6"}
+	]
 	$scope.data={};
 	$scope.data.level=50;
 	$scope.data.meta_level=50;
@@ -24,27 +38,33 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	$scope.data.atkEv=0;
 	$scope.data.atkIv=31;
 	$scope.data.atkNat="";
+	$scope.data.atkBoost=$scope.boosts[6];
 	$scope.data.atkMult=1;
 	$scope.data.defBase=0;
 	$scope.data.defEv=0;
 	$scope.data.defIv=31;
 	$scope.data.defNat="";
+	$scope.data.defBoost=$scope.boosts[6];
 	$scope.data.defMult=1;
 	$scope.data.spaBase=0;
 	$scope.data.spaEv=0;
 	$scope.data.spaIv=31;
 	$scope.data.spaNat="";
+	$scope.data.spaBoost=$scope.boosts[6];
 	$scope.data.spaMult=1;
 	$scope.data.spdBase=0;
 	$scope.data.spdEv=0;
 	$scope.data.spdIv=31;
 	$scope.data.spdNat="";
+	$scope.data.spdBoost=$scope.boosts[6];
 	$scope.data.spdMult=1;
 	$scope.data.speBase=0;
 	$scope.data.speEv=0;
 	$scope.data.speIv=31;
 	$scope.data.speNat="";
+	$scope.data.speBoost=$scope.boosts[6];
 	$scope.data.speMult=1;
+
 	$scope.natures=[
 		{name:"Adamant",verbose:"Adamant (+Atk, -SpA)",atkNat:"+",spaNat:"-"},
 		{name:"Bashful",verbose:"Bashful"},
@@ -104,11 +124,11 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 	});  //end of data.nature watch
 	$scope.$watch('data',function(newVal){
 		$scope.res.hp=$scope.computeHp();
-		$scope.res.atk=$scope.computeStat($scope.data.atkNat, $scope.data.atkBase, $scope.data.atkIv, $scope.data.atkEv, $scope.data.atkMult);
-		$scope.res.def=$scope.computeStat($scope.data.defNat, $scope.data.defBase, $scope.data.defIv, $scope.data.defEv, $scope.data.defMult);
-		$scope.res.spa=$scope.computeStat($scope.data.spaNat, $scope.data.spaBase, $scope.data.spaIv, $scope.data.spaEv, $scope.data.spaMult);
-		$scope.res.spd=$scope.computeStat($scope.data.spdNat, $scope.data.spdBase, $scope.data.spdIv, $scope.data.spdEv, $scope.data.spdMult);
-		$scope.res.spe=$scope.computeStat($scope.data.speNat, $scope.data.speBase, $scope.data.speIv, $scope.data.speEv, $scope.data.speMult);
+		$scope.res.atk=$scope.computeStat($scope.data.atkNat, $scope.data.atkBase, $scope.data.atkIv, $scope.data.atkEv, $scope.data.atkBoost.value, $scope.data.atkMult);
+		$scope.res.def=$scope.computeStat($scope.data.defNat, $scope.data.defBase, $scope.data.defIv, $scope.data.defEv, $scope.data.defBoost.value, $scope.data.defMult);
+		$scope.res.spa=$scope.computeStat($scope.data.spaNat, $scope.data.spaBase, $scope.data.spaIv, $scope.data.spaEv, $scope.data.spaBoost.value, $scope.data.spaMult);
+		$scope.res.spd=$scope.computeStat($scope.data.spdNat, $scope.data.spdBase, $scope.data.spdIv, $scope.data.spdEv, $scope.data.spdBoost.value, $scope.data.spdMult);
+		$scope.res.spe=$scope.computeStat($scope.data.speNat, $scope.data.speBase, $scope.data.speIv, $scope.data.speEv, $scope.data.speBoost.value, $scope.data.speMult);
 	},true);
 	$scope.computeHp = function(){
 		var top = (2*$scope.data.hpBase+1*$scope.data.hpIv+$scope.data.hpEv/4+100)*$scope.data.level;
@@ -118,7 +138,7 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 		}
 		return out;
 	};
-	$scope.computeStat = function(N, B, I, E, M){
+	$scope.computeStat = function(N, B, I, E, M, F){
 		var n = 1;
 		if(N === "+"){
 			n = 1.1;
@@ -127,7 +147,7 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 		};
 		var top = (2*B+1*I+E/4)*$scope.data.level;
 		var stat = Math.floor(n*Math.floor(top/100+5));
-		var out = Math.floor(M*stat);
+		var out = Math.floor(F*M*stat);
 		return out;
 	};
 	
