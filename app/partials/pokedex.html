@@ -1,0 +1,27 @@
+<div id="pokedex" class="wrapper">
+	Hello, this is the pokedex
+	<div class="row dex">
+
+		<table ng-table="dexTableParams" class="table">
+	    <tr ng-repeat="pokemon in pokemons">
+	    	<td data-title="'Nat #'" sortable="'national_id'">{{pokemon.national_id}}</td>
+	        <td data-title="'Name'" sortable="'name'">{{pokemon.name}}</td>
+	        <td data-title="'HP'" sortable="'hp'">{{pokemon.hp}}</td>
+	        <td data-title="'Atk'" sortable="'attack'">{{pokemon.attack}}</td>
+	        <td data-title="'Def'" sortable="'defense'">{{pokemon.defense}}</td>
+	        <td data-title="'SpA'" sortable="'sp_atk'">{{pokemon.sp_atk}}</td>
+	        <td data-title="'SpD'" sortable="'sp_def'">{{pokemon.sp_def}}</td>
+	        <td data-title="'Spe'" sortable="'speed'">{{pokemon.speed}}</td>
+	    </tr>
+	    </table>
+	</div>
+	<div class="row profile">
+		<div class="col-md-1">placeholder</div>
+		<div class="col-md-11">
+			
+		</div>
+	</div>
+	<div class="row moves">
+		
+	</div>
+</div>

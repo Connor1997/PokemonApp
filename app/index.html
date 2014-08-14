@@ -26,6 +26,7 @@
     -->
 
     <!-- build:css styles/components/main.min.css -->
+    <link rel="stylesheet" href="styles/ng-table.min.css">
     <link rel="stylesheet" href="styles/h5bp.css">
     <link rel="stylesheet" href="styles/components/components.css">
     <link rel="stylesheet" href="styles/main.css">
@@ -40,7 +41,7 @@
       <div class="app-bar-container">
         <button class="menu"><img src="images/hamburger.svg" alt="Menu"></button>
         <h1 class="logo">Pokemon App</h1>
-        debug {{data.atkBoost}}
+        debug {{nav}}
         <section class="app-bar-actions">
         <!-- Put App Bar Buttons Here -->
         </section>
@@ -59,6 +60,9 @@
     </nav>
 
     <main>
+    <div ng-show='nav === "pokedex"'>
+      <div ng-include="'partials/pokedex.html'"></div>
+    </div>
     <div ng-show='nav === "about"'>
       <h1>
         Hello!
@@ -234,6 +238,10 @@ To Be Determined
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script data-require="angular-resource@1.2.0-rc.3" data-semver="1.2.0-rc.3" src="http://code.angularjs.org/1.2.0-rc.3/angular-resource.js"></script>   
+    <script src="scripts/ng-table.min.js"></script>
+
+
     <script src="scripts/app.js"></script>
     <!-- endbuild -->
 

@@ -9,3 +9,10 @@
 	display: inline-block;
 	float: left;
 }
+.ng-table {
+    border: 1px solid #000;
+}
+.dex {
+	height: 500px;
+	overflow: auto;
+}

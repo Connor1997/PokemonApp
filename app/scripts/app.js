@@ -1,5 +1,8 @@
-var MyPokeApp = angular.module('MyPokeApp', []);
-MyPokeApp.controller('mainController', function($scope, $http) {
+var MyPokeApp = angular.module('MyPokeApp', ['ngTable']);
+MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $filter) {
+
+
+
 	$scope.nav = "calculator"
 	$scope.pokemons=[];
 	$scope.moves=[];
@@ -161,8 +164,31 @@ MyPokeApp.controller('mainController', function($scope, $http) {
 		$http({method:"GET",url:url})
 			.success(function(data){
 				// data = JSON.parse(data)
-				$scope.pokemons = data;
+				$scope.pokemons = data.slice(0,10);
 			
+				$scope.dexTableParams = new ngTableParams({
+			        page: 1,            // show first page
+			        count: 10,           // count per page
+			        sorting: {
+			        	name: 'asc'
+			        }
+			    }, {
+			        total: $scope.pokemons.length, // length of data
+			        getData: function($defer, params) {
+
+			            var orderedData = params.sorting() ?
+			                                $filter('orderBy')($scope.pokemons, params.orderBy()) :
+			                                $scope.pokemons;
+						var out = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
+						console.table(out)
+			            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+
+
+
+
+			        }
+			    });
+
 			}).error(function(data, status, headers, config){
 			
 			})
