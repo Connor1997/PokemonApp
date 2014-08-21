@@ -2,8 +2,8 @@
 	Hello, this is the pokedex
 	<div class="row dex">
 
-		<table ng-table="dexTableParams" class="table">
-	    <tr ng-repeat="pokemon in pokemons">
+		<table ng-table="dexTableParams" class="table" id="pokedex-table">
+	    <tr ng-class="{'active':pokemon.national_id === pokedex.active_id}" ng-repeat="pokemon in orderedData" ng-click="pokedexRowCallback(pokemon.national_id)">
 	    	<td data-title="'Nat #'" sortable="'national_id'">{{pokemon.national_id}}</td>
 	        <td data-title="'Name'" sortable="'name'">{{pokemon.name}}</td>
 	        <td data-title="'HP'" sortable="'hp'">{{pokemon.hp}}</td>
@@ -18,7 +18,34 @@
 	<div class="row profile">
 		<div class="col-md-1">placeholder</div>
 		<div class="col-md-11">
-			
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">{{pokedex.active_pokemon.name}}</div>
+					<div class="row">{{pokedex.active_id}}</div>
+				</div>
+				<div class="col-md-6">{{pokedex.active_pokemon.abilities}}</div>
+			</div>
+			<div class="row">
+				Stats:
+				<table style="width:90%">
+				<tr>
+					<th>HP</th>
+					<th>Atk</th>		
+					<th>Def</th>
+					<th>SpD</th>
+					<th>SpA</th>		
+					<th>Spe</th>
+				</tr>
+				<tr>
+					<td>{{pokedex.active_pokemon.hp}}</td>
+					<td>{{pokedex.active_pokemon.attack}}</td>		
+					<td>{{pokedex.active_pokemon.defense}}</td>
+					<td>{{pokedex.active_pokemon.sp_atk}}</td>
+					<td>{{pokedex.active_pokemon.sp_def}}</td>		
+					<td>{{pokedex.active_pokemon.speed}}</td>
+				</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 	<div class="row moves">

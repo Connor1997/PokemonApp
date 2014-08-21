@@ -1,7 +1,7 @@
 var MyPokeApp = angular.module('MyPokeApp', ['ngTable']);
 MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $filter) {
 
-
+	$scope.pokedex = {};//this is used to store the selected pokemon in the pokedex
 
 	$scope.nav = "calculator"
 	$scope.pokemons=[];
@@ -164,7 +164,7 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 		$http({method:"GET",url:url})
 			.success(function(data){
 				// data = JSON.parse(data)
-				$scope.pokemons = data.slice(0,10);
+				$scope.pokemons = data;
 			
 				$scope.dexTableParams = new ngTableParams({
 			        page: 1,            // show first page
@@ -180,8 +180,9 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 			                                $filter('orderBy')($scope.pokemons, params.orderBy()) :
 			                                $scope.pokemons;
 						var out = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
-						console.table(out)
+						$scope.orderedData = orderedData;
 			            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+						console.table(out)
 
 
 
@@ -194,7 +195,21 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 			})
 	};
 	$scope.get_pokemon();
+	$scope.pokedexRowCallback = function(national_id){
+		$scope.pokedex.active_id = national_id;
+		var pokemon = _.find($scope.pokemons, function(obj){
+			return (obj.national_id === national_id)
+		});
+		$scope.pokedex.active_pokemon = pokemon;
 
+	 //  	var new_abilities = [];
+		// for(var k=0;k<item.abilities.length;k++){
+		// 	var obj = {name: item.abilities[k].name};
+		// 	new_abilities.push(obj);
+		// };
+		// p.abilities = new_abilities;
+
+	};
 	$scope.computeScarf = function(sped){
 		var top = (Math.ceil(sped/1.1)-5)*100;
 		var mid = Math.ceil(top/$scope.data.meta_level)-94;
