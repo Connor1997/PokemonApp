@@ -20,7 +20,7 @@ POKEDEX STYLES
 	overflow: auto;
 }
 #pokedex-table tr:hover {
-	background-color: #CCC;
+	background-color: #AAA;
 	cursor: pointer;
 }
 .active {

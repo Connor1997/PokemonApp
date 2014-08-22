@@ -56,7 +56,7 @@ db.once('open', function callback () {
 	var pokemonSchema = mongoose.Schema({
 	    name: String,
 	    type: [{ name: String }],
-	    natId: Number,
+	    natId: String,
 	    stats: [{
 	    	hp: Number,
 	    	atk: Number,
@@ -76,6 +76,22 @@ db.once('open', function callback () {
 		for(var i=0;i<pokemons.length;i++){
 			var item = pokemons[i];
 			var p = new Pokemon({ name: item.name });
+
+			var newId;
+
+			var tempId = item.national_id+"";
+			if(tempId.length === 1){
+				newId = "00"+tempId;
+			} else if(tempId.length === 2){
+				newId = "0"+tempId;
+			}else if(tempId.length === 3){
+				newId = tempId;
+			}else {
+				newId = "F"+tempId;
+			}
+
+
+			p.natId = newId;
 	  		p.stats = { hp: item.hp, atk: item.attack, def: item.defense, spa: item.sp_atk, spd: item.sp_def, spe: item.speed };
   			// p.moves = { name: item.moves.name, method: item.moves.learn_type };
   			//@TODO build new moves list

@@ -3,15 +3,15 @@
 	<div class="row dex">
 
 		<table ng-table="dexTableParams" class="table" id="pokedex-table">
-	    <tr ng-class="{'active':pokemon.national_id === pokedex.active_id}" ng-repeat="pokemon in orderedData" ng-click="pokedexRowCallback(pokemon.national_id)">
-	    	<td data-title="'Nat #'" sortable="'national_id'">{{pokemon.national_id}}</td>
+	    <tr ng-class="{'active':pokemon.natId === pokedex.active_id}" ng-repeat="pokemon in orderedData" ng-click="pokedexRowCallback(pokemon.natId)">
+	    	<td data-title="'Nat #'" sortable="'natId'">{{pokemon.natId}}</td>
 	        <td data-title="'Name'" sortable="'name'">{{pokemon.name}}</td>
-	        <td data-title="'HP'" sortable="'hp'">{{pokemon.hp}}</td>
-	        <td data-title="'Atk'" sortable="'attack'">{{pokemon.attack}}</td>
-	        <td data-title="'Def'" sortable="'defense'">{{pokemon.defense}}</td>
-	        <td data-title="'SpA'" sortable="'sp_atk'">{{pokemon.sp_atk}}</td>
-	        <td data-title="'SpD'" sortable="'sp_def'">{{pokemon.sp_def}}</td>
-	        <td data-title="'Spe'" sortable="'speed'">{{pokemon.speed}}</td>
+	        <td data-title="'HP'" sortable="'stats[0].hp'">{{pokemon.stats[0].hp}}</td>
+	        <td data-title="'Atk'" sortable="'stats[0].atk'">{{pokemon.stats[0].atk}}</td>
+	        <td data-title="'Def'" sortable="'stats[0].def'">{{pokemon.stats[0].def}}</td>
+	        <td data-title="'SpA'" sortable="'stats[0].spa'">{{pokemon.stats[0].spa}}</td>
+	        <td data-title="'SpD'" sortable="'stats[0].spd'">{{pokemon.stats[0].spd}}</td>
+	        <td data-title="'Spe'" sortable="'stats[0].spe'">{{pokemon.stats[0].spe}}</td>
 	    </tr>
 	    </table>
 	</div>
@@ -23,7 +23,22 @@
 					<div class="row">{{pokedex.active_pokemon.name}}</div>
 					<div class="row">{{pokedex.active_id}}</div>
 				</div>
-				<div class="col-md-6">{{pokedex.active_pokemon.abilities}}</div>
+				<div class="col-md-6">
+					<table style="width:90%">
+					<tr>
+						<th>Abilities</th>
+					</tr>
+					<tr>
+						<td>{{pokedex.active_pokemon.abilities[0].name}}</td>
+					</tr>
+					<tr>
+						<td>{{pokedex.active_pokemon.abilities[1].name}}</td>
+					</tr>
+					<tr>
+						<td>{{pokedex.active_pokemon.abilities[2].name}}</td>
+					</tr>
+					</table>
+				</div>
 			</div>
 			<div class="row">
 				Stats:
@@ -37,18 +52,28 @@
 					<th>Spe</th>
 				</tr>
 				<tr>
-					<td>{{pokedex.active_pokemon.hp}}</td>
-					<td>{{pokedex.active_pokemon.attack}}</td>		
-					<td>{{pokedex.active_pokemon.defense}}</td>
-					<td>{{pokedex.active_pokemon.sp_atk}}</td>
-					<td>{{pokedex.active_pokemon.sp_def}}</td>		
-					<td>{{pokedex.active_pokemon.speed}}</td>
+					<td>{{pokedex.active_pokemon.stats[0].hp}}</td>
+					<td>{{pokedex.active_pokemon.stats[0].atk}}</td>		
+					<td>{{pokedex.active_pokemon.stats[0].def}}</td>
+					<td>{{pokedex.active_pokemon.stats[0].spa}}</td>
+					<td>{{pokedex.active_pokemon.stats[0].spd}}</td>		
+					<td>{{pokedex.active_pokemon.stats[0].spe}}</td>
 				</tr>
 				</table>
 			</div>
 		</div>
 	</div>
 	<div class="row moves">
-		
+<!-- 		<table ng-table="movesTableParams" class="table" id="moves-table">
+	    <tr ng-repeat="moves in orderedMoves">
+	    	<td data-title="'Name'" sortable="'name'">{{moves.name}}</td>
+	    	<td data-title="'Type'" sortable="'type'"></td>
+	        <td data-title="'Power'" sortable="'name'"></td>
+	        <td data-title="'Accuracy'" sortable="'hp'"></td>
+	        <td data-title="'Category'" sortable="'attack'"></td>
+	        <td data-title="'Description'" sortable="'defense'"></td>
+	        <td data-title="'Method'" sortable="'learn_type'">{{moves.learn_type}}</td>
+	    </tr>
+	    </table> -->
 	</div>
 </div>

@@ -160,7 +160,7 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 	},true);
 
 	$scope.get_pokemon = function(){
-		var url = "/scripts/pokemons.json";
+		var url = "/collections/pokemons";
 		$http({method:"GET",url:url})
 			.success(function(data){
 				// data = JSON.parse(data)
@@ -179,16 +179,18 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 			            var orderedData = params.sorting() ?
 			                                $filter('orderBy')($scope.pokemons, params.orderBy()) :
 			                                $scope.pokemons;
-						var out = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
+						// var out = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
 						$scope.orderedData = orderedData;
 			            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-						console.table(out)
+						// console.table(out)
 
 
 
 
 			        }
 			    });
+
+
 
 			}).error(function(data, status, headers, config){
 			
@@ -198,16 +200,34 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 	$scope.pokedexRowCallback = function(national_id){
 		$scope.pokedex.active_id = national_id;
 		var pokemon = _.find($scope.pokemons, function(obj){
-			return (obj.national_id === national_id)
+			return (obj.natId === national_id)
 		});
 		$scope.pokedex.active_pokemon = pokemon;
 
-	 //  	var new_abilities = [];
-		// for(var k=0;k<item.abilities.length;k++){
-		// 	var obj = {name: item.abilities[k].name};
-		// 	new_abilities.push(obj);
-		// };
-		// p.abilities = new_abilities;
+
+		// $scope.movesTableParams = new ngTableParams({
+	 //        page: 1,            // show first page
+	 //        count: 10,           // count per page
+	 //        sorting: {
+	 //        	learn_type: 'asc'
+	 //        }
+	 //    }, {
+	 //        total: $scope.pokedex.active_pokemon.moves.length, // length of data
+	 //        getData: function($defer, params) {
+
+	 //            var orderedData = params.sorting() ?
+	 //                                $filter('orderBy')($scope.pokedex.active_pokemon.moves, params.orderBy()) :
+	 //                                $scope.pokedex.active_pokemon.moves;
+		// 		// var out = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count())
+		// 		$scope.orderedMoves = orderedData;
+	 //            $defer.resolve(orderedMoves.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+		// 		// console.table(out)
+
+
+
+
+	 //        }
+	 //    });
 
 	};
 	$scope.computeScarf = function(sped){
@@ -225,12 +245,13 @@ MyPokeApp.controller('mainController', function($scope, $http, ngTableParams, $f
 				var name = move.name.replace("-"," ");
 				moves.push(name);
 			};
-			$scope.data.hpBase = newVal.hp;
-			$scope.data.atkBase = newVal.attack;
-			$scope.data.defBase = newVal.defense;
-			$scope.data.spaBase = newVal.sp_atk;
-			$scope.data.spdBase = newVal.sp_def;
-			$scope.data.speBase = newVal.speed;
+			
+			$scope.data.hpBase = newVal.stats[0].hp;
+			$scope.data.atkBase = newVal.stats[0].atk;
+			$scope.data.defBase = newVal.stats[0].def;
+			$scope.data.spaBase = newVal.stats[0].spa;
+			$scope.data.spdBase = newVal.stats[0].spd;
+			$scope.data.speBase = newVal.stats[0].spe;
 			$scope.moves = moves;
 			$('#moves1').autocomplete("option", { source: $scope.moves });
 			$('#moves2').autocomplete("option", { source: $scope.moves });

@@ -12,7 +12,7 @@ var express = require('express')
 var app = express()
 app.use(bodyParser())
 
-var db = mongoskin.db('mongodb://@localhost:27017/test', {safe:true})
+var db = mongoskin.db('mongodb://localhost/test', {safe:true})
 
 app.param('collectionName', function(req, res, next, collectionName){
   req.collection = db.collection(collectionName)
@@ -21,7 +21,7 @@ app.param('collectionName', function(req, res, next, collectionName){
 
 
 app.get('/collections/:collectionName', function(req, res, next) {
-  req.collection.find({} ,{limit:10, sort: [['_id',-1]]}).toArray(function(e, results){
+  req.collection.find({} ,{limit:1000, sort: [['_id',-1]]}).toArray(function(e, results){
     if (e) return next(e)
     res.send(results)
   })
@@ -55,6 +55,6 @@ app.del('/collections/:collectionName/:id', function(req, res, next) {
   })
 })
 
-app.use('/', express.static(__dirname + '/app/public'));
+app.use('/', express.static(__dirname + '/app'));
 
 app.listen(3000)
